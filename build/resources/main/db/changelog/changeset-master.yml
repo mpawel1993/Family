@@ -1,0 +1,137 @@
+databaseChangeLog:
+  - preConditions:
+      - runningAs:
+          username: SA
+
+  - changeSet:
+      id: 1
+      author: PAWEL MAZUR
+      changes:
+        - createTable:
+            tableName: FAMILY
+            columns:
+              - column:
+                  name: ID
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: FATHER_ID
+                  type: BIGINT
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: false
+                    nullable: false
+              - column:
+                  name: MOTHER_ID
+                  type: BIGINT
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: false
+                    nullable: false
+        - createTable:
+            tableName: FATHER
+            columns:
+              - column:
+                  name: ID
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: BIRTH_DATE
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: FIRST_NAME
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: PESEL
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: SUR_NAME
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: FAMILY_ID
+                  type: BIGINT
+        - createTable:
+            tableName: MOTHER
+            columns:
+              - column:
+                  name: ID
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: BIRTH_DATE
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: FIRST_NAME
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: PESEL
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: SUR_NAME
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: FAMILY_ID
+                  type: BIGINT
+        - createTable:
+            tableName: CHILD
+            columns:
+              - column:
+                  name: ID
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: BIRTH_DATE
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: FIRST_NAME
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: SEX
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: PESEL
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: SUR_NAME
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: FAMILY_ID
+                  type: BIGINT

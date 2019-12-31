@@ -1,0 +1,18 @@
+spring:
+  liquibase:
+    enabled: false
+    change-log: classpath:/db/changelog/changeset-master.yml
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    #    url: mysql://${MYSQL_HOST:localhost}:3306/myDb
+    url: jdbc:mysql://192.168.0.15:3306/PreProdDB
+    username: root
+    password: password
+server:
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:keystore/FamilyCert.p12
+    key-store-password: RyxJaFuQ3uZXwD82nFgKtWUfBfuekmJB
+    key-alias: FamilyCert
