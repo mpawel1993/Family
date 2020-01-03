@@ -5,7 +5,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,32 +31,26 @@ public class FamilyController {
 
     static final String FAMILY_URL = "/family";
     private static final String REL = "familyId";
-    private static final String CREATE_FAMILY_URL = "/create";
-    private static final String READ_FAMILY_URL = "/{id}";
-    private static final String DELETE_FAMILY_URL = "/{id}";
-    private static final String SEARCH_FAMILY_URL = "/search";
     private final FamilyService service;
     private final FamilyMapper mapper;
 
-    @GetMapping(CREATE_FAMILY_URL)
+    @GetMapping("/create")
     @ApiOperation(value = "Create family")
     public Resource<FamilyDto> createFamily() {
-        FamilyDto createdFamily = mapper.map(service.createFamily());
+        var createdFamily = mapper.map(service.createFamily());
         log.info("Created family with id : {}", createdFamily.getId());
-
-        return new Resource<>(createdFamily, link(createdFamily.getId()));
+        return link(createdFamily);
     }
 
-    @GetMapping(READ_FAMILY_URL)
+    @GetMapping("/{id}")
     @ApiOperation(value = "Read family")
     public Resource<FamilyDto> readFamily(@PathVariable Long id) {
-        FamilyDto readFamily = mapper.map(service.readFamily(id));
+        var readFamily = mapper.map(service.readFamily(id));
         log.info("Was read family with id : {}", readFamily.getId());
-
-        return new Resource<>(readFamily, link(readFamily.getId()));
+        return link(readFamily);
     }
 
-    @DeleteMapping(DELETE_FAMILY_URL)
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiOperation(value = "Delete family")
     public void deleteFamily(@PathVariable Long id) {
@@ -65,21 +58,20 @@ public class FamilyController {
         log.info("Deleted family with id : {}", id);
     }
 
-    @PostMapping(SEARCH_FAMILY_URL)
+    @PostMapping("/search")
     @ResponseStatus(HttpStatus.MULTI_STATUS)
     @ApiOperation(value = "Search family basing on family members properties")
     public List<FamilyDto> searchFamily(@RequestBody FamilySearchCriteriaDto criteriaDto) {
-        List<FamilyDto> foundFamilies = service.searchFamilies(mapper.map(criteriaDto))
+        var foundFamilies = service.searchFamilies(mapper.map(criteriaDto))
                 .stream()
                 .map(mapper::map)
                 .collect(Collectors.toList());
-
         log.info("Found families with id's : {}", Collections2.transform(foundFamilies, FamilyDto::getId));
-
         return foundFamilies;
     }
 
-    private Link link(long familyId) {
-        return linkTo(FamilyController.class).slash(familyId).withRel(REL);
+    private Resource<FamilyDto> link(FamilyDto familyDto) {
+        var link = (linkTo(FamilyController.class).slash("/child/" + familyDto.getId()).withRel(REL));
+        return new Resource<>(familyDto, link);
     }
 }
