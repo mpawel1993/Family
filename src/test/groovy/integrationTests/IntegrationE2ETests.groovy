@@ -22,7 +22,7 @@ class IntegrationE2ETests extends Specification {
     @LocalServerPort
     int port;
 
-    def local = 'http://localhost:'
+    def local = 'https://localhost:'
 
     void 'adding flow '() {
         given:

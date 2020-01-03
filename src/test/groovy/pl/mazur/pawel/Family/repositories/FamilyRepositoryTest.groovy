@@ -2,12 +2,14 @@ package pl.mazur.pawel.Family.repositories
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.jdbc.Sql
 import pl.mazur.pawel.Family.FamilyApplication
 import pl.mazur.pawel.Family.domain.FamilySearchCriteria
 import spock.lang.Specification
 
+@ActiveProfiles('dev')
 @Sql("/tests_data/testsDB.sql")
 @DataJpaTest
 @ContextConfiguration(classes = FamilyApplication.class)
@@ -33,8 +35,6 @@ class FamilyRepositoryTest extends Specification {
             .build()
 
     def "Should searchFamily find all families passing to search criteria"() {
-        given:
-
         when:
         def foundFamilies = familyRepository.searchFamilies(
                 //Father Criteria
@@ -54,7 +54,8 @@ class FamilyRepositoryTest extends Specification {
                 criteria.childSex,
                 criteria.childBirthDay
         )
+
         then:
-        true
+        println foundFamilies
     }
 }
