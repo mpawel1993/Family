@@ -20,7 +20,7 @@ public class MotherService {
 
     public Mother addMother(Long familyId, Mother mother) {
         if (motherRepository.findByPesel(mother.getPesel()).isPresent()) {
-            throw new BusinessException("Child with provided PESEL exist");
+            throw new BusinessException("Child with provided PESEL already exist");
         }
         Family family = familyRepository.findById(familyId)
                 .orElseThrow(businessException(MOTHER_NOT_FOUND_STATEMENT))
@@ -42,6 +42,4 @@ public class MotherService {
     public void deleteMother(Long id) {
         motherRepository.deleteById(id);
     }
-
-
 }

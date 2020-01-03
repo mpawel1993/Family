@@ -22,12 +22,12 @@ public class FamilyService {
         return familyRepository.save(new Family());
     }
 
-    public Family readFamily(long id) {
+    public Family readFamily(Long id) {
         return familyRepository.findById(id)
                 .orElseThrow(businessException(FAMILY_NOT_FOUND_STATEMENT));
     }
 
-    public void deleteFamily(long id) {
+    public void deleteFamily(Long id) {
         familyRepository.deleteById(id);
     }
 

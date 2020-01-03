@@ -9,8 +9,8 @@ import pl.mazur.pawel.Family.exceptions.BusinessException;
 import javax.persistence.*;
 import java.util.List;
 
-import static pl.mazur.pawel.Family.service.FatherService.FAMILY_HAVE_FATHER_STATEMENT;
-import static pl.mazur.pawel.Family.service.FatherService.FAMILY_HAVE_MOTHER_STATEMENT;
+import static pl.mazur.pawel.Family.exceptions.Statements.FAMILY_HAVE_FATHER_STATEMENT;
+import static pl.mazur.pawel.Family.exceptions.Statements.FAMILY_HAVE_MOTHER_STATEMENT;
 
 @Data
 @Entity
@@ -37,7 +37,7 @@ public class Family {
 
     public Family checkIsFatherExist() {
         if (this.getFather() != null) {
-            throw new BusinessException(FAMILY_HAVE_FATHER_STATEMENT);
+            throw  new BusinessException(FAMILY_HAVE_FATHER_STATEMENT);
         }
         return this;
     }

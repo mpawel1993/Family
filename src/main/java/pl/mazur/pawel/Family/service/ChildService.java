@@ -15,10 +15,11 @@ import static pl.mazur.pawel.Family.exceptions.Statements.FAMILY_NOT_FOUND_STATE
 @Service
 @AllArgsConstructor(staticName = "of")
 public class ChildService {
+
     private final ChildRepository childRepository;
     private final FamilyRepository familyRepository;
 
-    public Child addChild(long familyId, Child child) {
+    public Child addChild(Long familyId, Child child) {
         if (childRepository.findByPesel(child.getPesel()).isPresent()) {
             throw new BusinessException("Child with provided PESEL exist");
         }
@@ -33,7 +34,7 @@ public class ChildService {
                 .orElseThrow(businessException(FAMILY_NOT_FOUND_STATEMENT));
     }
 
-    public List<Child> readChilds(long familyId) {
+    public List<Child> readChilds(Long familyId) {
         return childRepository.findAllByFamily_Id(familyId);
     }
 

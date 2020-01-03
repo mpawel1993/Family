@@ -9,6 +9,10 @@ public class BusinessException extends RuntimeException {
         super(message);
     }
 
+    public BusinessException(Statements message) {
+        super(message.toString());
+    }
+
     public static Supplier<BusinessException> businessException(Statements message) {
         return () -> new BusinessException(message.toString());
     }

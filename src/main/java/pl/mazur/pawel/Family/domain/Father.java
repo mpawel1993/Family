@@ -8,7 +8,8 @@ import pl.mazur.pawel.Family.exceptions.BusinessException;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-import static pl.mazur.pawel.Family.service.FatherService.ALREADY_EXISTING_FATHER_STATEMENT;
+import static pl.mazur.pawel.Family.exceptions.Statements.ALREADY_EXISTING_FATHER_STATEMENT;
+
 
 @Data
 @Accessors(chain = true)
