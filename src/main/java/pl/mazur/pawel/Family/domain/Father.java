@@ -17,7 +17,6 @@ import static pl.mazur.pawel.Family.service.FatherService.ALREADY_EXISTING_FATHE
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "gg")
 public class Father {
 
     @Id

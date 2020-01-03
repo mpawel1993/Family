@@ -19,7 +19,6 @@ import static pl.mazur.pawel.Family.service.FatherService.FAMILY_HAVE_MOTHER_STA
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "FAMILY")
 public class Family {
 
     @Id

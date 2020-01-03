@@ -7,7 +7,7 @@ import pl.mazur.pawel.Family.domain.Mother;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-01-01T00:07:12+0100",
+    date = "2020-01-03T10:07:20+0100",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.5 (Private Build)"
 )
 @Component

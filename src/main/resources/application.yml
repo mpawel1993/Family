@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: Family-Service
+server:
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:keystore/FamilyCert.p12
+    key-store-password: RyxJaFuQ3uZXwD82nFgKtWUfBfuekmJB
+    key-alias: FamilyCert
+    enabled: true
+  port: 8082
