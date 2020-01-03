@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.mazur.pawel.Family.domain.Family;
 import pl.mazur.pawel.Family.domain.Father;
+import pl.mazur.pawel.Family.exceptions.BusinessException;
 import pl.mazur.pawel.Family.repositories.FamilyRepository;
 import pl.mazur.pawel.Family.repositories.FatherRepository;
 
@@ -22,6 +23,9 @@ public class FatherService {
     private final FamilyRepository familyRepository;
 
     public Father addFather(long familyId, Father father) {
+        if (fatherRepository.findByPesel(father.getPesel()).isPresent()) {
+            throw new BusinessException("Child with provided PESEL exist");
+        }
         Family family = familyRepository.findById(familyId)
                 .orElseThrow(businessException(FATHER_NOT_FOUND_STATEMENT))
                 .checkIsFatherExist();

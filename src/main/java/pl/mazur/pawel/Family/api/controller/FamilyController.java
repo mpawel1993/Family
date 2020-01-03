@@ -71,7 +71,7 @@ public class FamilyController {
     }
 
     private Resource<FamilyDto> link(FamilyDto familyDto) {
-        var link = (linkTo(FamilyController.class).slash("/child/" + familyDto.getId()).withRel(REL));
+        var link = (linkTo(FamilyController.class).slash("/family/" + familyDto.getId()).withRel(REL));
         return new Resource<>(familyDto, link);
     }
 }
