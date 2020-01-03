@@ -5,7 +5,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.jdbc.Sql
 import pl.mazur.pawel.Family.FamilyApplication
-import pl.mazur.pawel.Family.domain.Family
 import pl.mazur.pawel.Family.domain.FamilySearchCriteria
 import spock.lang.Specification
 
@@ -37,23 +36,24 @@ class FamilyRepositoryTest extends Specification {
         given:
 
         when:
-        List<Family> foundFamilies = familyRepository.searchFamilies(
-                //Father Data
-                criteria.getFatherBirthDate(),
-                criteria.getFatherFirstName(),
-                criteria.getFatherPesel(),
-                criteria.getFatherSurName(),
-                //Mother Data
-                criteria.getMotherBirthDate(),
-                criteria.getMotherFirstName(),
-                criteria.getMotherPesel(),
-                criteria.getMotherSurName(),
-                //Child Data
-                criteria.getChildName(),
-                criteria.getChildSurName(),
-                criteria.getChildPesel(),
-                criteria.getChildBirthDay(),
-                criteria.getChildSex())
+        def foundFamilies = familyRepository.searchFamilies(
+                //Father Criteria
+                criteria.fatherFirstName,
+                criteria.fatherSurName,
+                criteria.fatherPesel,
+                criteria.fatherBirthDate,
+                //Mother criteria
+                criteria.motherFirstName,
+                criteria.motherSurName,
+                criteria.fatherPesel,
+                criteria.motherBirthDate,
+                //Child criteria
+                criteria.childName,
+                criteria.childSurName,
+                criteria.fatherPesel,
+                criteria.childSex,
+                criteria.childBirthDay
+        )
         then:
         true
     }
