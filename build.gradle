@@ -47,5 +47,6 @@ dependencies {
 	implementation 'org.liquibase:liquibase-core'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-hateoas', version: '1.2.2.RELEASE'
 	runtimeOnly 'mysql:mysql-connector-java'
-	//implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '2.1.4.RELEASE'
 }
