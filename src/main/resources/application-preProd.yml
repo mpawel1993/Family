@@ -10,3 +10,12 @@ spring:
     url: jdbc:mysql://192.168.0.15:3306/PreProdDB
     username: root
     password: password
+logging:
+  file: logs/pre_prod_profile_app.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.controllers: DEBUG
+    org.hibernate: DEBUG

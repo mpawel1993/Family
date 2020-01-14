@@ -9,3 +9,11 @@ spring:
     url: mysql://${MYSQL_HOST:localhost}:3306/myDb
     username: root
     password: 123
+logging:
+  file: logs/production_profile_app.log
+  pattern:
+    file: "%d %-5level [%thread] %logger{0} : %msg%n"
+  level:
+    org.springframework.web: WARN
+    guru.springframework.controllers: WARN
+    org.hibernate: WARN
