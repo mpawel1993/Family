@@ -29,6 +29,7 @@ class FatherServiceTest extends Specification {
 
         1 * familyRepository.findById(familyId) >> Optional.of(foundFamily)
         1 * fatherRepository.save(newFather) >> createdFather
+        1 * fatherRepository.findByPesel(newFather.pesel) >> Optional.empty()
         0 * _._
     }
 
@@ -45,6 +46,7 @@ class FatherServiceTest extends Specification {
         thrown(BusinessException)
 
         1 * familyRepository.findById(familyId) >> Optional.of(foundFamily)
+        1 * fatherRepository.findByPesel(newFather.pesel) >> Optional.empty()
         0 * _._
     }
 
@@ -61,6 +63,7 @@ class FatherServiceTest extends Specification {
         thrown(BusinessException)
 
         1 * familyRepository.findById(familyId) >> Optional.of(foundFamily)
+        1 * fatherRepository.findByPesel(newFather.pesel) >> Optional.empty()
         0 * _._
     }
 

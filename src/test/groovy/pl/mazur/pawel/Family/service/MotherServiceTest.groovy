@@ -28,39 +28,42 @@ class MotherServiceTest extends Specification {
         result == createdMother
 
         1 * familyRepository.findById(familyId) >> Optional.of(foundFamily)
+        1 * motherRepository.findByPesel(newMother.pesel) >> Optional.empty()
         1 * motherRepository.save(newMother) >> createdMother
         0 * _._
     }
 
-    void 'Should addMother throw father have unexpected motherId'() {
+    void 'Should addMother throw mother have unexpected motherId'() {
         given:
         def familyId = 123L
-        def newFather = createMother()
+        def newMother = createMother()
         def foundFamily = createFamily().toBuilder().father(null).build()
 
         when:
-        service.addMother(familyId, newFather)
+        service.addMother(familyId, newMother)
 
         then:
         thrown(BusinessException)
 
         1 * familyRepository.findById(familyId) >> Optional.of(foundFamily)
+        1 * motherRepository.findByPesel(newMother.pesel) >> Optional.empty()
         0 * _._
     }
 
     void 'Should addMother should throw mother already exist exception'() {
         given:
         def familyId = 123L
-        def newFather = createMother().toBuilder().id(null).build()
+        def newMother = createMother().toBuilder().id(null).build()
         def foundFamily = createFamily().toBuilder().build()
 
         when:
-        def result = service.addMother(familyId, newFather)
+        def result = service.addMother(familyId, newMother)
 
         then:
         thrown(BusinessException)
 
         1 * familyRepository.findById(familyId) >> Optional.of(foundFamily)
+        1 * motherRepository.findByPesel(newMother.pesel) >> Optional.empty()
         0 * _._
     }
 

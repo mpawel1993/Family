@@ -29,6 +29,7 @@ class ChildServiceTest extends Specification {
 
         1 * familyRepository.findById(familyId) >> Optional.of(foundFamily)
         1 * childRepository.save(newChild) >> createdChild
+        1 * childRepository.findByPesel(newChild.pesel) >> Optional.empty()
         0 * _._
     }
 
