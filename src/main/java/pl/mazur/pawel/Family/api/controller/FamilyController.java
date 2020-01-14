@@ -58,7 +58,7 @@ public class FamilyController {
         log.info("Deleted family with id : {}", id);
     }
 
-    @PostMapping("/search")
+    @GetMapping("/search")
     @ResponseStatus(HttpStatus.MULTI_STATUS)
     @ApiOperation(value = "Search family basing on family members properties")
     public List<FamilyDto> searchFamily(@RequestBody FamilySearchCriteriaDto criteriaDto) {

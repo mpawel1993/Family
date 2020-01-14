@@ -17,7 +17,8 @@ import static factory.FamilyFacotry.createFamily
 import static factory.FamilyFacotry.createFamilyList
 import static groovy.json.JsonOutput.toJson
 import static org.hamcrest.Matchers.is
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import static pl.mazur.pawel.Family.api.controller.FamilyController.FAMILY_URL
@@ -100,7 +101,7 @@ class FamilyControllerTest extends Specification {
         def foundFamilies = createFamilyList()
 
         when:
-        def response = mvc.perform(post("$url/search").contentType(MediaType.APPLICATION_JSON)
+        def response = mvc.perform(get("$url/search").contentType(MediaType.APPLICATION_JSON)
                 .content(toJson(criteriaDto)))
         then:
         response.andExpect(status().isMultiStatus())
