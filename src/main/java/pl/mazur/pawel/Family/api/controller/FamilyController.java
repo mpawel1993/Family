@@ -5,7 +5,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +17,6 @@ import pl.mazur.pawel.Family.service.FamilyService;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static pl.mazur.pawel.Family.api.controller.FamilyController.FAMILY_URL;
 
 @Slf4j
@@ -36,18 +34,18 @@ public class FamilyController {
 
     @GetMapping("/create")
     @ApiOperation(value = "Create family")
-    public Resource<FamilyDto> createFamily() {
+    public FamilyDto createFamily() {
         var createdFamily = mapper.map(service.createFamily());
         log.info("Created family with id : {}", createdFamily.getId());
-        return link(createdFamily);
+        return createdFamily;
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Read family")
-    public Resource<FamilyDto> readFamily(@PathVariable Long id) {
+    public FamilyDto readFamily(@PathVariable Long id) {
         var readFamily = mapper.map(service.readFamily(id));
         log.info("Was read family with id : {}", readFamily.getId());
-        return link(readFamily);
+        return readFamily;
     }
 
     @DeleteMapping("/{id}")
@@ -68,10 +66,5 @@ public class FamilyController {
                 .collect(Collectors.toList());
         log.info("Found families with id's : {}", Collections2.transform(foundFamilies, FamilyDto::getId));
         return foundFamilies;
-    }
-
-    private Resource<FamilyDto> link(FamilyDto familyDto) {
-        var link = (linkTo(FamilyController.class).slash(familyDto.getId()).withRel(REL));
-        return new Resource<>(familyDto, link);
     }
 }

@@ -13,8 +13,6 @@ import java.util.List;
 @Repository
 public interface FamilyRepository extends JpaRepository<Family, Long> {
 
-    Family findByFatherId(long fatherId);
-
     @Query("from Family family inner join family.father father on family.father.id = father.id " +
             "inner join family.mother mother on family.mother.id = mother.id " +
             "inner join family.childs childs on family.id = childs.id where " +

@@ -12,14 +12,13 @@ import pl.mazur.pawel.Family.mapper.FamilyMapper
 import pl.mazur.pawel.Family.service.FamilyService
 import spock.lang.Specification
 
-import static factory.FamilyDtoFactory.createCriteriaDto
+import static factory.FamilyDtoFactory.*
 import static factory.FamilyFacotry.createFamily
 import static factory.FamilyFacotry.createFamilyList
 import static groovy.json.JsonOutput.toJson
-import static org.hamcrest.Matchers.is
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import static pl.mazur.pawel.Family.api.controller.FamilyController.FAMILY_URL
 
@@ -27,7 +26,7 @@ import static pl.mazur.pawel.Family.api.controller.FamilyController.FAMILY_URL
 class FamilyControllerTest extends Specification {
 
     def url = "${FAMILY_URL}"
-    def anyFamily = createFamily()
+
 
     @Autowired
     MockMvc mvc
@@ -41,20 +40,21 @@ class FamilyControllerTest extends Specification {
     @SpringBean
     FamilyMapper familyMapper = Mappers.getMapper(FamilyMapper.class)
 
+    String asJson(def obj) {
+        objectMapper.writeValueAsString(obj)
+    }
+
     void 'Should createFamily create new family'() {
         given:
-        def createdFamily = anyFamily.setId(123L)
-        String link = "http://localhost/family/$createdFamily.id"
+        def createdFamily = createFamily().toBuilder().id(123L).build()
+        def createdFamilyDto = createFamilyDto().toBuilder().id(123L).build()
 
         when:
         def response = mvc.perform(get("$url/create"))
 
         then:
         response.andExpect(status().isOk())
-                .andExpect(jsonPath('$.id', is(createdFamily.id as int)))
-                .andExpect(jsonPath('$.fatherDto.id', is(createdFamily.father.id as int)))
-                .andExpect(jsonPath('$.motherDto.id', is(createdFamily.mother.id as int)))
-                .andExpect(jsonPath('$._links.familyId.href', is(link)))
+                .andExpect(content().json(asJson(createdFamilyDto)))
 
         1 * service.createFamily() >> createdFamily
         0 * _._
@@ -63,18 +63,15 @@ class FamilyControllerTest extends Specification {
     void 'Should readFamily return family basing on id'() {
         given:
         def familyId = 1L
-        def foundFamily = anyFamily
-        String link = "http://localhost/family/$foundFamily.id"
+        def foundFamily = createFamily()
+        def foundFamilyDto = createFamilyDto()
 
         when:
         def response = mvc.perform(get("$url/$familyId"))
 
         then:
         response.andExpect(status().isOk())
-                .andExpect(jsonPath('$.id', is(foundFamily.id as int)))
-                .andExpect(jsonPath('$.fatherDto.id', is(foundFamily.father.id as int)))
-                .andExpect(jsonPath('$.motherDto.id', is(foundFamily.mother.id as int)))
-                .andExpect(jsonPath('$._links.familyId.href', is(link)))
+                .andExpect(content().json(asJson(foundFamilyDto)))
 
         1 * service.readFamily(familyId) >> foundFamily
         0 * _._
@@ -82,7 +79,7 @@ class FamilyControllerTest extends Specification {
 
     void 'Should deleteFamily remove family'() {
         given:
-        long existingFamilyId = 1L
+        def existingFamilyId = 1L
 
         when:
         def response = mvc.perform(delete("$url/$existingFamilyId"))
@@ -99,14 +96,14 @@ class FamilyControllerTest extends Specification {
         def criteriaDto = createCriteriaDto()
         def criteria = familyMapper.map(criteriaDto)
         def foundFamilies = createFamilyList()
+        def foundFamiliesDto = createFamilyDtoList()
 
         when:
         def response = mvc.perform(get("$url/search").contentType(MediaType.APPLICATION_JSON)
                 .content(toJson(criteriaDto)))
         then:
         response.andExpect(status().isMultiStatus())
-                .andExpect(jsonPath('$.[0].id', is(2 as int)))
-                .andExpect(jsonPath('$.[1].id', is(3 as int)))
+                .andExpect(content().json(asJson(foundFamiliesDto)))
 
         1 * service.searchFamilies(criteria) >> foundFamilies
         0 * _._

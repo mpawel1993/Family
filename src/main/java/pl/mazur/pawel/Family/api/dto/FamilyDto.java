@@ -1,16 +1,14 @@
 package pl.mazur.pawel.Family.api.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
 
-//@Builder(toBuilder = true)
+@Builder(toBuilder = true)
 @Getter
 @Setter
-//@AllArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 //@JsonInclude(NON_NULL)
 public class FamilyDto implements Serializable {

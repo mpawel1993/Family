@@ -5,7 +5,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static pl.mazur.pawel.Family.api.controller.FamilyController.FAMILY_URL;
 
 @Slf4j
@@ -34,19 +32,19 @@ public class ChildController {
 
     @PostMapping("{familyId}/child")
     @ApiOperation(value = "Add Child")
-    public Resource<ChildDto> addChild(@PathVariable long familyId, @RequestBody ChildDto childDto) {
+    public ChildDto addChild(@PathVariable Long familyId, @RequestBody ChildDto childDto) {
         var child = mapper.map(childDto);
         var addedChild = mapper.map(service.addChild(familyId, child));
         log.info("Added child with id : {}", addedChild.getId());
-        return link(addedChild);
+        return addedChild;
     }
 
     @ApiOperation(value = "Read child")
     @GetMapping("/child/{id}")
-    public Resource<ChildDto> readChild(@PathVariable long id) {
+    public ChildDto readChild(@PathVariable long id) {
         var foundChild = mapper.map(service.readChild(id));
         log.info("Found child with id : {}", foundChild.getId());
-        return link(foundChild);
+        return foundChild;
     }
 
     @ApiOperation(value = "Read child list ")
@@ -62,11 +60,11 @@ public class ChildController {
 
     @PutMapping("/child")
     @ApiOperation(value = "Update child")
-    public Resource<ChildDto> updateChild(@RequestBody ChildDto childDto) {
+    public ChildDto updateChild(@RequestBody ChildDto childDto) {
         var child = mapper.map(childDto);
         var updatedChild = mapper.map(service.updateChild(child));
         log.info("Updated child with id: {}", updatedChild.getId());
-        return link(updatedChild);
+        return updatedChild;
     }
 
     @DeleteMapping("/child/{id}")
@@ -75,10 +73,5 @@ public class ChildController {
     public void deleteChild(@PathVariable Long id) {
         service.deleteChild(id);
         log.info("Deleted child with id : {}", id);
-    }
-
-    private Resource<ChildDto> link(ChildDto childDto) {
-        var link = (linkTo(FamilyController.class).slash(childDto.getId()).withRel(REL));
-        return new Resource<>(childDto, link);
     }
 }
