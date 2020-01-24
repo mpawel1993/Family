@@ -4,7 +4,10 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import pl.mazur.pawel.Family.exceptions.BusinessException;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
 import static pl.mazur.pawel.Family.exceptions.Statements.ALREADY_EXISTING_MOTHER_STATEMENT;
@@ -33,9 +36,6 @@ public class Mother {
 
     @Column(nullable = false)
     String surName;
-
-    @OneToOne
-    Family family;
 
     public void checkIsMotherHaveUnexpectedId() {
         if (this.getId() != null) {

@@ -48,4 +48,5 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '2.1.4.RELEASE'
+	compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.10.Final'
 }

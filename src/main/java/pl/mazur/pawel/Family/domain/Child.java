@@ -36,7 +36,4 @@ public class Child {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     ChildSex sex;
-
-    @ManyToOne
-    Family family;
 }

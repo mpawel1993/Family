@@ -18,16 +18,17 @@ public class FatherService {
     private final FatherRepository fatherRepository;
     private final FamilyRepository familyRepository;
 
-    public Father addFather(long familyId, Father father) {
+    public Father addFather(Long familyId, Father father) {
         if (fatherRepository.findByPesel(father.getPesel()).isPresent()) {
             throw new BusinessException("Father with provided PESEL already exist");
         }
+
         Family family = familyRepository.findById(familyId)
                 .orElseThrow(businessException(FATHER_NOT_FOUND_STATEMENT))
                 .checkIsFatherExist();
         father.checkIsFatherHaveUnexpectedId();
-        father.setFamily(family);
-        return fatherRepository.save(father);
+        family.setFather(father);
+        return familyRepository.save(family).getFather();
     }
 
     public Father updateFather(Father father) {
