@@ -18,18 +18,18 @@ class MotherServiceTest extends Specification {
         given:
         def familyId = 123L
         def newMother = createMother().toBuilder().id(null).build()
-        def createdMother = createMother()
-        def foundFamily = createFamily().toBuilder().mother(null).build()
+        def foundFamily = createFamily().toBuilder().mother(null).father(null).build()
+        def savedFamily = createFamily().toBuilder().father(null).mother(createMother()).build()
 
         when:
         def result = service.addMother(familyId, newMother)
 
         then:
-        result == createdMother
+        result == savedFamily.mother
 
-        1 * familyRepository.findById(familyId) >> Optional.of(foundFamily)
         1 * motherRepository.findByPesel(newMother.pesel) >> Optional.empty()
-        1 * motherRepository.save(newMother) >> createdMother
+        1 * familyRepository.findById(familyId) >> Optional.of(foundFamily)
+        1 * familyRepository.save(_) >> savedFamily
         0 * _._
     }
 

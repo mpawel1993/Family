@@ -9,7 +9,6 @@ import pl.mazur.pawel.Family.repositories.FamilyRepository;
 import pl.mazur.pawel.Family.repositories.MotherRepository;
 
 import static pl.mazur.pawel.Family.exceptions.BusinessException.businessException;
-import static pl.mazur.pawel.Family.exceptions.Statements.FATHER_NOT_FOUND_STATEMENT;
 import static pl.mazur.pawel.Family.exceptions.Statements.MOTHER_NOT_FOUND_STATEMENT;
 
 @Service
@@ -25,7 +24,7 @@ public class MotherService {
         }
 
         Family family = familyRepository.findById(familyId)
-                .orElseThrow(businessException(FATHER_NOT_FOUND_STATEMENT))
+                .orElseThrow(businessException(MOTHER_NOT_FOUND_STATEMENT))
                 .checkIsMotherExist();
         mother.checkIsMotherHaveUnexpectedId();
         family.setMother(mother);

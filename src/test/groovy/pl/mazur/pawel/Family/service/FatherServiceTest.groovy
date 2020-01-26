@@ -18,18 +18,18 @@ class FatherServiceTest extends Specification {
         given:
         def familyId = 123L
         def newFather = createFather().toBuilder().id(null).build()
-        def createdFather = createFather()
-        def foundFamily = createFamily().toBuilder().father(null).build()
+        def foundFamily = createFamily().toBuilder().mother(null).father(null).build()
+        def savedFamily = createFamily().toBuilder().father(createFather()).mother(null).build()
 
         when:
         def result = service.addFather(familyId, newFather)
 
         then:
-        result == createdFather
+        result == savedFamily.father
 
-        1 * familyRepository.findById(familyId) >> Optional.of(foundFamily)
-        1 * fatherRepository.save(newFather) >> createdFather
         1 * fatherRepository.findByPesel(newFather.pesel) >> Optional.empty()
+        1 * familyRepository.findById(familyId) >> Optional.of(foundFamily)
+        1 * familyRepository.save(_) >> savedFamily
         0 * _._
     }
 

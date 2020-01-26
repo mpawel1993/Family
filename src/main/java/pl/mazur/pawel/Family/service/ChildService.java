@@ -15,11 +15,11 @@ import static pl.mazur.pawel.Family.exceptions.Statements.FAMILY_NOT_FOUND_STATE
 import static pl.mazur.pawel.Family.exceptions.Statements.FATHER_NOT_FOUND_STATEMENT;
 
 @Service
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "of")
 public class ChildService {
 
-    FamilyRepository familyRepository;
     ChildRepository childRepository;
+    FamilyRepository familyRepository;
 
     public Child addChild(Long familyId, Child child) {
         if (childRepository.findByPesel(child.getPesel()).isPresent()) {
