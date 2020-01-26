@@ -1,6 +1,6 @@
 package pl.mazur.pawel.Family.service
 
-
+import pl.mazur.pawel.Family.domain.Family
 import pl.mazur.pawel.Family.repositories.ChildRepository
 import pl.mazur.pawel.Family.repositories.FamilyRepository
 import spock.lang.Specification
@@ -17,9 +17,9 @@ class ChildServiceTest extends Specification {
     void 'Should addChild create new child'() {
         given:
         def familyId = 123L
+        def foundFamily = createFamily().toBuilder().childs([]).build()
         def newChild = createChild().toBuilder().id(null).build()
-        def createdChild = createChild()
-        def foundFamily = createFamily()
+        def createdChild = createChild().toBuilder().id(1L).build()
 
         when:
         def result = service.addChild(familyId, newChild)
@@ -27,9 +27,10 @@ class ChildServiceTest extends Specification {
         then:
         result == createdChild
 
-        1 * familyRepository.findById(familyId) >> Optional.of(foundFamily)
-        1 * childRepository.save(newChild) >> createdChild
         1 * childRepository.findByPesel(newChild.pesel) >> Optional.empty()
+        1 * familyRepository.findById(familyId) >> Optional.of(foundFamily)
+        1 * familyRepository.save(_)
+        1 * childRepository.findFirstByOrderByIdDesc() >> createdChild
         0 * _._
     }
 
@@ -79,6 +80,7 @@ class ChildServiceTest extends Specification {
         given:
         def familyId = 123L
         def foundChilds = [createChild(), createChild().toBuilder().id(987L).build()]
+        def foundFamily = Family.builder().childs(foundChilds).build()
 
         when:
         def result = service.readChilds(familyId)
@@ -86,6 +88,6 @@ class ChildServiceTest extends Specification {
         then:
         result == foundChilds
 
-        1 * childRepository.findAllByFamily_Id(familyId) >> foundChilds
+        1 * familyRepository.findById(familyId) >> Optional.of(foundFamily)
     }
 }
