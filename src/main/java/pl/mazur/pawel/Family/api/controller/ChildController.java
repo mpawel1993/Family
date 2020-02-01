@@ -1,8 +1,5 @@
 package pl.mazur.pawel.Family.api.controller;
 
-import com.google.common.collect.Collections2;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,7 +19,7 @@ import static pl.mazur.pawel.Family.api.controller.FamilyController.FAMILY_URL;
 @Valid
 @RestController
 @AllArgsConstructor
-@Api(tags = "Child API")
+//@Api(tags = "Child API")
 @RequestMapping(value = FAMILY_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ChildController {
 
@@ -31,7 +28,7 @@ public class ChildController {
     private final ChildMapper mapper;
 
     @PostMapping("{familyId}/child")
-    @ApiOperation(value = "Add Child")
+//    @ApiOperation(value = "Add Child")
     public ChildDto addChild(@PathVariable Long familyId, @RequestBody ChildDto childDto) {
         var child = mapper.map(childDto);
         var addedChild = mapper.map(service.addChild(familyId, child));
@@ -39,7 +36,7 @@ public class ChildController {
         return addedChild;
     }
 
-    @ApiOperation(value = "Read child")
+    //    @ApiOperation(value = "Read child")
     @GetMapping("/child/{id}")
     public ChildDto readChild(@PathVariable long id) {
         var foundChild = mapper.map(service.readChild(id));
@@ -47,19 +44,19 @@ public class ChildController {
         return foundChild;
     }
 
-    @ApiOperation(value = "Read child list ")
+    //    @ApiOperation(value = "Read child list ")
     @GetMapping("/{familyId}/childs")
     public List<ChildDto> readChilds(@PathVariable long familyId) {
         List<ChildDto> foundChilds = service.readChilds(familyId)
                 .stream()
                 .map(mapper::map)
                 .collect(toList());
-        log.info("Found child's with id's : {}", Collections2.transform(foundChilds, ChildDto::getId));
+        log.info("Found child's with id's : {}", foundChilds.stream().map(ChildDto::getId).collect(toList()));
         return foundChilds;
     }
 
     @PutMapping("/child")
-    @ApiOperation(value = "Update child")
+//    @ApiOperation(value = "Update child")
     public ChildDto updateChild(@RequestBody ChildDto childDto) {
         var child = mapper.map(childDto);
         var updatedChild = mapper.map(service.updateChild(child));
@@ -68,7 +65,7 @@ public class ChildController {
     }
 
     @DeleteMapping("/child/{id}")
-    @ApiOperation(value = "Delete child")
+//    @ApiOperation(value = "Delete child")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteChild(@PathVariable Long id) {
         service.deleteChild(id);

@@ -8,5 +8,6 @@ public class FamilyApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FamilyApplication.class, args);
+        System.out.println("Swagger : https://localhost:8082/swagger-ui.html");
     }
 }

@@ -1,7 +1,6 @@
 package pl.mazur.pawel.Family.api.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,7 @@ import static pl.mazur.pawel.Family.api.controller.FamilyController.FAMILY_URL;
 @Valid
 @RestController
 @AllArgsConstructor
-@Api(tags = "Mother API")
+//@Api(tags = "Mother API")
 @RequestMapping(value = FAMILY_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class MotherController {
 
@@ -28,7 +27,7 @@ public class MotherController {
     public final MotherMapper mapper;
 
     @PostMapping("/{familyId}/mother")
-    @ApiOperation(value = "Add mother")
+//    @ApiOperation(value = "Add mother")
     public MotherDto addMother(@PathVariable long familyId, @RequestBody MotherDto motherDto) {
         var mother = mapper.map(motherDto);
         var addedMother = mapper.map(service.addMother(familyId, mother));
@@ -37,7 +36,7 @@ public class MotherController {
     }
 
     @GetMapping("/mother/{id}")
-    @ApiOperation(value = "Read mother")
+//    @ApiOperation(value = "Read mother")
     public MotherDto readMother(@PathVariable Long id) {
         var foundMother = mapper.map(service.readMother(id));
         log.info("Added mother with id : {}", foundMother.getId());
@@ -45,7 +44,7 @@ public class MotherController {
     }
 
     @PutMapping("/mother")
-    @ApiOperation(value = "Update mother")
+//    @ApiOperation(value = "Update mother")
     public MotherDto updateMother(@RequestBody MotherDto motherDto) {
         var mother = mapper.map(motherDto);
         var updatedMother = mapper.map(service.updateMother(mother));
@@ -54,7 +53,7 @@ public class MotherController {
     }
 
     @DeleteMapping("/mother/{id}")
-    @ApiOperation(value = "Delete mother")
+//    @ApiOperation(value = "Delete mother")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMother(@PathVariable Long id) {
         service.deleteMother(id);

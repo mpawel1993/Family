@@ -1,8 +1,5 @@
 package pl.mazur.pawel.Family.api.controller;
 
-import com.google.common.collect.Collections2;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -15,15 +12,15 @@ import pl.mazur.pawel.Family.mapper.FamilyMapper;
 import pl.mazur.pawel.Family.service.FamilyService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
 import static pl.mazur.pawel.Family.api.controller.FamilyController.FAMILY_URL;
 
 @Slf4j
 @Validated
 @RestController
 @AllArgsConstructor
-@Api(tags = "Family API")
+//@Api(tags = "Family API")
 @RequestMapping(value = FAMILY_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class FamilyController {
 
@@ -33,7 +30,7 @@ public class FamilyController {
     private final FamilyMapper mapper;
 
     @GetMapping("/create")
-    @ApiOperation(value = "Create family")
+//    @ApiOperation(value = "Create family")
     public FamilyDto createFamily() {
         var createdFamily = mapper.map(service.createFamily());
         log.info("Created family with id : {}", createdFamily.getId());
@@ -41,7 +38,7 @@ public class FamilyController {
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Read family")
+//    @ApiOperation(value = "Read family")
     public FamilyDto readFamily(@PathVariable Long id) {
         var readFamily = mapper.map(service.readFamily(id));
         log.info("Was read family with id : {}", readFamily.getId());
@@ -50,7 +47,7 @@ public class FamilyController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @ApiOperation(value = "Delete family")
+//    @ApiOperation(value = "Delete family")
     public void deleteFamily(@PathVariable Long id) {
         service.deleteFamily(id);
         log.info("Deleted family with id : {}", id);
@@ -58,13 +55,13 @@ public class FamilyController {
 
     @GetMapping("/search")
     @ResponseStatus(HttpStatus.MULTI_STATUS)
-    @ApiOperation(value = "Search family basing on family members properties")
+//    @ApiOperation(value = "Search family basing on family members properties")
     public List<FamilyDto> searchFamily(@RequestBody FamilySearchCriteriaDto criteriaDto) {
         var foundFamilies = service.searchFamilies(mapper.map(criteriaDto))
                 .stream()
                 .map(mapper::map)
-                .collect(Collectors.toList());
-        log.info("Found families with id's : {}", Collections2.transform(foundFamilies, FamilyDto::getId));
+                .collect(toList());
+        log.info("Found families with id's : {}", foundFamilies.stream().map(FamilyDto::getId).collect(toList()));
         return foundFamilies;
     }
 }

@@ -1,7 +1,5 @@
 package pl.mazur.pawel.Family.api.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,7 +17,7 @@ import static pl.mazur.pawel.Family.api.controller.FamilyController.FAMILY_URL;
 @Valid
 @RestController
 @AllArgsConstructor
-@Api(tags = "Father API")
+//@Api(tags = "Father API")
 @RequestMapping(value = FAMILY_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class FatherController {
 
@@ -28,7 +26,7 @@ public class FatherController {
     public final FatherMapper mapper;
 
     @PostMapping("/{familyId}/father")
-    @ApiOperation(value = "Add father")
+//    @ApiOperation(value = "Add father")
     public FatherDto addFather(@PathVariable long familyId, @RequestBody FatherDto fatherDto) {
         var father = mapper.map(fatherDto);
         var addedFather = mapper.map(service.addFather(familyId, father));
@@ -37,7 +35,7 @@ public class FatherController {
     }
 
     @GetMapping("/father/{id}")
-    @ApiOperation(value = "Read father")
+//    @ApiOperation(value = "Read father")
     public FatherDto readFather(@PathVariable Long id) {
         var readFather = mapper.map(service.readFather(id));
         log.info("Was read father with id : {}", readFather.getId());
@@ -45,7 +43,7 @@ public class FatherController {
     }
 
     @PutMapping("/father")
-    @ApiOperation(value = "Update father")
+//    @ApiOperation(value = "Update father")
     public FatherDto updateFather(@RequestBody FatherDto fatherDto) {
         var father = mapper.map(fatherDto);
         var updatedFather = mapper.map(service.updateFather(father));
@@ -54,7 +52,7 @@ public class FatherController {
     }
 
     @DeleteMapping("/{id}/father")
-    @ApiOperation(value = "Delete father")
+//    @ApiOperation(value = "Delete father")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFather(@PathVariable long id) {
         service.deleteFather(id);
