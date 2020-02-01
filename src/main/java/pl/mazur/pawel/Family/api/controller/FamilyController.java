@@ -1,5 +1,7 @@
 package pl.mazur.pawel.Family.api.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -20,7 +22,7 @@ import static pl.mazur.pawel.Family.api.controller.FamilyController.FAMILY_URL;
 @Validated
 @RestController
 @AllArgsConstructor
-//@Api(tags = "Family API")
+@Tag(name = "Family API")
 @RequestMapping(value = FAMILY_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class FamilyController {
 
@@ -30,7 +32,7 @@ public class FamilyController {
     private final FamilyMapper mapper;
 
     @GetMapping("/create")
-//    @ApiOperation(value = "Create family")
+    @Operation(summary = "Create family")
     public FamilyDto createFamily() {
         var createdFamily = mapper.map(service.createFamily());
         log.info("Created family with id : {}", createdFamily.getId());
@@ -38,7 +40,7 @@ public class FamilyController {
     }
 
     @GetMapping("/{id}")
-//    @ApiOperation(value = "Read family")
+    @Operation(summary = "Read family")
     public FamilyDto readFamily(@PathVariable Long id) {
         var readFamily = mapper.map(service.readFamily(id));
         log.info("Was read family with id : {}", readFamily.getId());
@@ -47,7 +49,7 @@ public class FamilyController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-//    @ApiOperation(value = "Delete family")
+    @Operation(summary = "Delete family")
     public void deleteFamily(@PathVariable Long id) {
         service.deleteFamily(id);
         log.info("Deleted family with id : {}", id);
@@ -55,7 +57,7 @@ public class FamilyController {
 
     @GetMapping("/search")
     @ResponseStatus(HttpStatus.MULTI_STATUS)
-//    @ApiOperation(value = "Search family basing on family members properties")
+    @Operation(summary = "Search family basing on family members properties")
     public List<FamilyDto> searchFamily(@RequestBody FamilySearchCriteriaDto criteriaDto) {
         var foundFamilies = service.searchFamilies(mapper.map(criteriaDto))
                 .stream()
