@@ -13,22 +13,7 @@ import java.util.List;
 @Repository
 public interface FamilyRepository extends JpaRepository<Family, Long> {
 
-    @Query("from Family family inner join family.father father on family.father.id = father.id " +
-            "inner join family.mother mother on family.mother.id = mother.id " +
-            "inner join family.childs childs on family.id = childs.id where " +
-            "father.firstName like  :fatherFirstName% and " +
-            "father.surName like :fatherSurName% and " +
-            "father.pesel like  :fatherPesel% and " +
-            "father.birthDate like :fatherBirthDate% and " +
-            "mother.firstName like :motherFirstName% and " +
-            "mother.surName like :motherSurName% and " +
-            "mother.pesel like :motherPesel% and " +
-            "mother.birthDate like :motherBirthDate% and " +
-            "childs.firstName like :childFirstName% and " +
-            "childs.surName like :childSurName% and " +
-            "childs.pesel like :childPesel% and " +
-            "childs.sex like :childSex% and " +
-            "childs.birthDate like :childBirthDate%")
+    @Query("from Family family")
     List<Family> searchFamilies(@Param("fatherFirstName") String fatherFirstName,
                                 @Param("fatherSurName") String fatherSurName,
                                 @Param("fatherPesel") String fatherPesel,
