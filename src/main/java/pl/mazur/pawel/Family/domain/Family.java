@@ -31,7 +31,7 @@ public class Family {
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     Mother mother;
 
-    @JoinColumn(name = "FAMILY_ID", referencedColumnName = "ID")
+    @JoinColumn()
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     List<Child> childs;
 

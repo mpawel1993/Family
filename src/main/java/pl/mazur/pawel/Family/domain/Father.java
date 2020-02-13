@@ -33,7 +33,7 @@ public class Father {
     @Column(nullable = false)
     String firstName;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     String pesel;
 
     @Column(nullable = false)

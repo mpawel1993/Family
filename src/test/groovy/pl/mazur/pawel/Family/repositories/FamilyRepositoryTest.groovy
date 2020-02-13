@@ -3,10 +3,11 @@ package pl.mazur.pawel.Family.repositories
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
-import pl.mazur.pawel.Family.domain.FamilySearchCriteria
 import spock.lang.Specification
 import spock.lang.Unroll
 
+import static pl.mazur.pawel.Family.repositories.FamilySearchCriteriaTest.createFamilyCriteria
+import static pl.mazur.pawel.Family.repositories.FamilySearchCriteriaTest.createSecondFamilyCriteria
 import static pl.mazur.pawel.Family.repositories.RepositoryData.createFirstFamily
 import static pl.mazur.pawel.Family.repositories.RepositoryData.createSecondFamily
 
@@ -17,11 +18,12 @@ class FamilyRepositoryTest extends Specification {
     @Autowired
     FamilyRepository familyRepository
 
+    def setup() {
+        prepareTestData()
+    }
+
     @Unroll
     def "SearchFamilies"() {
-        given:
-        prepareTestData()
-
         when:
         def result = familyRepository.searchFamilies(criteria.fatherFirstName,
                 criteria.fatherSurName,
@@ -41,14 +43,16 @@ class FamilyRepositoryTest extends Specification {
         then:
         result != expected_result
 
+
         where:
-        criteria                               | expected_result
-        FamilySearchCriteria.builder().build() | FamilySearchCriteria.builder().build()
-        FamilySearchCriteria.builder().build() | FamilySearchCriteria.builder().build()
+        criteria                     | expected_result
+        createFamilyCriteria()       | null
+        createSecondFamilyCriteria() | null
 
     }
 
     private void prepareTestData() {
+        familyRepository.deleteAll()
         familyRepository.save(createFirstFamily())
         familyRepository.save(createSecondFamily())
     }

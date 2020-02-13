@@ -6,10 +6,9 @@ spring:
     hibernate:
       ddl-auto: validate
   datasource:
-    #    url: mysql://${MYSQL_HOST:localhost}:3306/myDb
-    url: jdbc:mysql://192.168.0.15:3306/PreProdDB
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/testdb
     username: root
-    password: password
+    password: pass
 logging:
   file: logs/pre_prod_profile_app.log
   pattern:

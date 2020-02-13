@@ -21,7 +21,7 @@ public class Child {
     @GeneratedValue()
     Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     String pesel;
 
     @Column(nullable = false)

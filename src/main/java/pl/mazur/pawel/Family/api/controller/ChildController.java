@@ -1,7 +1,7 @@
 package pl.mazur.pawel.Family.api.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ import static pl.mazur.pawel.Family.api.controller.FamilyController.FAMILY_URL;
 @Valid
 @RestController
 @AllArgsConstructor
-@Tag(name = "Child API")
+@Api(tags = "Child API")
 @RequestMapping(value = FAMILY_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ChildController {
 
@@ -30,7 +30,7 @@ public class ChildController {
     private final ChildMapper mapper;
 
     @PostMapping("{familyId}/child")
-    @Operation(summary = "Add Child")
+    @ApiOperation("Add Child")
     public ChildDto addChild(@PathVariable Long familyId, @RequestBody ChildDto childDto) {
         var child = mapper.map(childDto);
         var addedChild = mapper.map(service.addChild(familyId, child));
@@ -38,7 +38,7 @@ public class ChildController {
         return addedChild;
     }
 
-    @Operation(summary = "Read child")
+    @ApiOperation("Read child")
     @GetMapping("/child/{id}")
     public ChildDto readChild(@PathVariable long id) {
         var foundChild = mapper.map(service.readChild(id));
@@ -46,7 +46,7 @@ public class ChildController {
         return foundChild;
     }
 
-    @Operation(summary = "Read child list ")
+    @ApiOperation("Read child list ")
     @GetMapping("/{familyId}/childs")
     public List<ChildDto> readChilds(@PathVariable long familyId) {
         List<ChildDto> foundChilds = service.readChilds(familyId)
@@ -58,7 +58,7 @@ public class ChildController {
     }
 
     @PutMapping("/child")
-    @Operation(summary = "Update child")
+    @ApiOperation("Update child")
     public ChildDto updateChild(@RequestBody ChildDto childDto) {
         var child = mapper.map(childDto);
         var updatedChild = mapper.map(service.updateChild(child));
@@ -67,7 +67,7 @@ public class ChildController {
     }
 
     @DeleteMapping("/child/{id}")
-    @Operation(summary = "Delete child")
+    @ApiOperation("Delete child")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteChild(@PathVariable Long id) {
         service.deleteChild(id);

@@ -47,7 +47,7 @@ class RepositoryData {
                 .firstName('John')
                 .surName('Snow')
                 .birthDate(LocalDate.of(1987, 8, 12))
-                .pesel('198708129857')
+                .pesel('19870812096')
                 .build()
         def mother_2 = Mother.builder()
                 .firstName('Mariola')

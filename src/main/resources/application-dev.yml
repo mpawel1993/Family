@@ -14,12 +14,12 @@ spring:
   liquibase:
     enabled: false
     change-log: classpath:/db/changelog/changeset-master.yml
-#logging:
-#  file: logs/dev_profile_app.log
-#  pattern:
-#    console: "%d %-5level %logger : %msg%n"
-#    file: "%d %-5level [%thread] %logger : %msg%n"
-#  level:
-#    org.springframework.web: DEBUG
-#    org.springframework.controllers: DEBUG
-#    org.hibernate: DEBUG
+logging:
+  file: logs/dev_profile_app.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.controllers: DEBUG
+    org.hibernate: DEBUG

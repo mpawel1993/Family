@@ -1,13 +1,13 @@
 package pl.mazur.pawel.Family.service;
 
 import lombok.AllArgsConstructor;
-import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import pl.mazur.pawel.Family.domain.Family;
 import pl.mazur.pawel.Family.domain.FamilySearchCriteria;
 import pl.mazur.pawel.Family.repositories.FamilyRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static pl.mazur.pawel.Family.exceptions.BusinessException.businessException;
 import static pl.mazur.pawel.Family.exceptions.Statements.FAMILY_NOT_FOUND_STATEMENT;
@@ -31,7 +31,7 @@ public class FamilyService {
         familyRepository.deleteById(id);
     }
 
-    public List<Family> searchFamilies(@NonNull FamilySearchCriteria criteria) {
+    public List<Family> searchFamilies(FamilySearchCriteria criteria) {
         return familyRepository.searchFamilies(criteria.getFatherFirstName(),
                 criteria.getFatherSurName(),
                 criteria.getFatherPesel(),
@@ -44,6 +44,9 @@ public class FamilyService {
                 criteria.getChildSurName(),
                 criteria.getChildPesel(),
                 criteria.getChildSex(),
-                criteria.getChildBirthDay());
+                criteria.getChildBirthDay())
+                .stream()
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

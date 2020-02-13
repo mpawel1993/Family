@@ -1,7 +1,7 @@
 package pl.mazur.pawel.Family.api.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ import static pl.mazur.pawel.Family.api.controller.FamilyController.FAMILY_URL;
 @Validated
 @RestController
 @AllArgsConstructor
-@Tag(name = "Family API")
+@Api(tags = "Family API")
 @RequestMapping(value = FAMILY_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class FamilyController {
 
@@ -32,7 +32,7 @@ public class FamilyController {
     private final FamilyMapper mapper;
 
     @GetMapping("/create")
-    @Operation(summary = "Create family")
+    @ApiOperation("Create family")
     public FamilyDto createFamily() {
         var createdFamily = mapper.map(service.createFamily());
         log.info("Created family with id : {}", createdFamily.getId());
@@ -40,7 +40,7 @@ public class FamilyController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Read family")
+    @ApiOperation("Read family")
     public FamilyDto readFamily(@PathVariable Long id) {
         var readFamily = mapper.map(service.readFamily(id));
         log.info("Was read family with id : {}", readFamily.getId());
@@ -49,7 +49,7 @@ public class FamilyController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "Delete family")
+    @ApiOperation("Delete family")
     public void deleteFamily(@PathVariable Long id) {
         service.deleteFamily(id);
         log.info("Deleted family with id : {}", id);
@@ -57,8 +57,8 @@ public class FamilyController {
 
     @GetMapping("/search")
     @ResponseStatus(HttpStatus.MULTI_STATUS)
-    @Operation(summary = "Search family basing on family members properties")
-    public List<FamilyDto> searchFamily(@RequestBody FamilySearchCriteriaDto criteriaDto) {
+    @ApiOperation("Search family basing on family members properties")
+    public List<FamilyDto> searchFamily(FamilySearchCriteriaDto criteriaDto) {
         var foundFamilies = service.searchFamilies(mapper.map(criteriaDto))
                 .stream()
                 .map(mapper::map)

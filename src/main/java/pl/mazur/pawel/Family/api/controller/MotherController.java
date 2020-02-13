@@ -1,8 +1,8 @@
 package pl.mazur.pawel.Family.api.controller;
 
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ import static pl.mazur.pawel.Family.api.controller.FamilyController.FAMILY_URL;
 @Valid
 @RestController
 @AllArgsConstructor
-@Tag(name = "Mother API")
+@Api(tags = "Mother API")
 @RequestMapping(value = FAMILY_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class MotherController {
 
@@ -29,7 +29,7 @@ public class MotherController {
     public final MotherMapper mapper;
 
     @PostMapping("/{familyId}/mother")
-    @Operation(summary = "Add mother")
+    @ApiOperation("Add mother")
     public MotherDto addMother(@PathVariable long familyId, @RequestBody MotherDto motherDto) {
         var mother = mapper.map(motherDto);
         var addedMother = mapper.map(service.addMother(familyId, mother));
@@ -38,7 +38,7 @@ public class MotherController {
     }
 
     @GetMapping("/mother/{id}")
-    @Operation(summary = "Read mother")
+    @ApiOperation("Read mother")
     public MotherDto readMother(@PathVariable Long id) {
         var foundMother = mapper.map(service.readMother(id));
         log.info("Added mother with id : {}", foundMother.getId());
@@ -46,7 +46,7 @@ public class MotherController {
     }
 
     @PutMapping("/mother")
-    @Operation(summary = "Update mother")
+    @ApiOperation("Update mother")
     public MotherDto updateMother(@RequestBody MotherDto motherDto) {
         var mother = mapper.map(motherDto);
         var updatedMother = mapper.map(service.updateMother(mother));
@@ -55,7 +55,7 @@ public class MotherController {
     }
 
     @DeleteMapping("/mother/{id}")
-    @Operation(summary = "Delete mother")
+    @ApiOperation("Delete mother")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMother(@PathVariable Long id) {
         service.deleteMother(id);

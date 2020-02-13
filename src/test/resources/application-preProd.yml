@@ -1,0 +1,19 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/testdb
+    username: root
+    password: pass
+  liquibase:
+    enabled: false
+    change-log: classpath:/testChangelog/changeset-master-tests.yml
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+server:
+  ssl:
+    enabled: false
