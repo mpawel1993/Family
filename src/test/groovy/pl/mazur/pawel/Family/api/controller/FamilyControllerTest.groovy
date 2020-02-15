@@ -94,7 +94,6 @@ class FamilyControllerTest extends Specification {
     void 'Should searchFamily find all families basing on search criteria'() {
         given:
         def criteriaDto = createCriteriaDto()
-        def criteria = familyMapper.map(criteriaDto)
         def foundFamilies = createFamilyList()
         def foundFamiliesDto = createFamilyDtoList()
 
@@ -104,8 +103,7 @@ class FamilyControllerTest extends Specification {
         then:
         response.andExpect(status().isMultiStatus())
                 .andExpect(content().json(asJson(foundFamiliesDto)))
-
-        1 * service.searchFamilies(criteria) >> foundFamilies
+        1 * service.searchFamilies(_) >> foundFamilies
         0 * _._
     }
 }

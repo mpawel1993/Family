@@ -19,7 +19,9 @@ class FamilyRepositoryTest extends Specification {
     FamilyRepository familyRepository
 
     def setup() {
-        prepareTestData()
+        familyRepository.deleteAll()
+        familyRepository.save(createFirstFamily())
+        familyRepository.save(createSecondFamily())
     }
 
     @Unroll
@@ -45,14 +47,8 @@ class FamilyRepositoryTest extends Specification {
 
         where:
         criteria                     | expected_family_id
-        createFamilyCriteria()       | 1
-        createSecondFamilyCriteria() | 9
+        createFamilyCriteria()       | 1L
+        createSecondFamilyCriteria() | 16L
 
-    }
-
-    private void prepareTestData() {
-        familyRepository.deleteAll()
-        familyRepository.save(createFirstFamily())
-        familyRepository.save(createSecondFamily())
     }
 }
