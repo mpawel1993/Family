@@ -6,7 +6,10 @@ class FamilySearchCriteriaTest {
 
     static FamilySearchCriteria createFamilyCriteria() {
         FamilySearchCriteria.builder()
-                .fatherFirstName('Roman')
+                .fatherFirstName('Rom')
+                .fatherSurName(null)
+                .fatherPesel(null)
+                .fatherBirthDate(null)
                 .build()
     }
 

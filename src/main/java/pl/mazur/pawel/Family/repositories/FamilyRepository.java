@@ -14,9 +14,23 @@ import java.util.List;
 public interface FamilyRepository extends JpaRepository<Family, Long> {
 
     @Query(value = "select distinct * from family " +
-            "inner join father f on family.father_id = f.id " +
-            "inner join mother m on family.mother_id = m.id " +
-            "inner join child c2 on family.id = c2.childs_id", nativeQuery = true)
+            "inner join father fat on family.father_id = fat.id " +
+            "inner join mother mat on family.mother_id = mat.id " +
+            "inner join child ch on family.id = ch.childs_id where " +
+            "fat.first_name  like %:fatherFirstName% or " +
+            "fat.sur_name like %:fatherSurName% or " +
+            "fat.pesel like %:fatherPesel% or " +
+            "fat.birth_date = :fatherBirthDate or " +
+            "mat.first_name  like %:motherFirstName% or " +
+            "mat.sur_name like %:motherSurName% or " +
+            "mat.pesel like %:motherPesel% or " +
+            "mat.birth_date = :motherBirthDate or " +
+            "ch.first_name like %:childFirstName% or " +
+            "ch.sur_name like %:childSurName% or " +
+            "ch.pesel like %:childPesel% or " +
+            "ch.sex = :childSex or " +
+            "ch.birth_date = :childBirthDate"
+            , nativeQuery = true)
     List<Family> searchFamilies(@Param("fatherFirstName") String fatherFirstName,
                                 @Param("fatherSurName") String fatherSurName,
                                 @Param("fatherPesel") String fatherPesel,

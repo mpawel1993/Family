@@ -45,5 +45,5 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 //	implementation 'org.liquibase:liquibase-core'
 	runtimeOnly 'mysql:mysql-connector-java'
-	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '2.1.5.RELEASE'
+//	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '2.1.5.RELEASE'
 }

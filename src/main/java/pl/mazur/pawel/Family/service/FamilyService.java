@@ -7,7 +7,9 @@ import pl.mazur.pawel.Family.domain.FamilySearchCriteria;
 import pl.mazur.pawel.Family.repositories.FamilyRepository;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static pl.mazur.pawel.Family.exceptions.BusinessException.businessException;
 import static pl.mazur.pawel.Family.exceptions.Statements.FAMILY_NOT_FOUND_STATEMENT;
@@ -32,6 +34,8 @@ public class FamilyService {
     }
 
     public List<Family> searchFamilies(FamilySearchCriteria criteria) {
+        var ff = Stream.of(criteria).anyMatch(Objects::nonNull);
+
         return familyRepository.searchFamilies(criteria.getFatherFirstName(),
                 criteria.getFatherSurName(),
                 criteria.getFatherPesel(),

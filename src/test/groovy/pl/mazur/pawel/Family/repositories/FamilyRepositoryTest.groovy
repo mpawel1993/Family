@@ -37,17 +37,16 @@ class FamilyRepositoryTest extends Specification {
                 criteria.childSurName,
                 criteria.childPesel,
                 criteria.childSex,
-                criteria.childBirthDay
-        )
+                criteria.childBirthDay)
+                .stream().distinct().findFirst().get()
 
         then:
-        result != expected_result
-
+        result.id == expected_family_id
 
         where:
-        criteria                     | expected_result
-        createFamilyCriteria()       | null
-        createSecondFamilyCriteria() | null
+        criteria                     | expected_family_id
+        createFamilyCriteria()       | 1
+        createSecondFamilyCriteria() | 9
 
     }
 
