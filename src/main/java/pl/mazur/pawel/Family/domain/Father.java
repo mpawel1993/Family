@@ -5,10 +5,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 import pl.mazur.pawel.Family.exceptions.BusinessException;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 import static pl.mazur.pawel.Family.exceptions.Statements.ALREADY_EXISTING_FATHER_STATEMENT;
@@ -24,7 +21,7 @@ import static pl.mazur.pawel.Family.exceptions.Statements.ALREADY_EXISTING_FATHE
 public class Father {
 
     @Id
-    @GeneratedValue()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @Column(nullable = false)

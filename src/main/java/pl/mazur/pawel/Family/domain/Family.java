@@ -22,7 +22,7 @@ import static pl.mazur.pawel.Family.exceptions.Statements.FAMILY_HAVE_MOTHER_STA
 public class Family {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

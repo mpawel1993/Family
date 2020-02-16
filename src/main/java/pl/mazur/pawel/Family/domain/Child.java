@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class Child {
 
     @Id
-    @GeneratedValue()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @Column(nullable = false)
