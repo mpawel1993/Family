@@ -18,8 +18,8 @@ import static pl.mazur.pawel.Family.exceptions.Statements.FATHER_NOT_FOUND_STATE
 @AllArgsConstructor(staticName = "of")
 public class ChildService {
 
-    ChildRepository childRepository;
-    FamilyRepository familyRepository;
+    private ChildRepository childRepository;
+    private FamilyRepository familyRepository;
 
     public Child addChild(Long familyId, Child child) {
         if (childRepository.findByPesel(child.getPesel()).isPresent()) {

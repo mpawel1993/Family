@@ -61,9 +61,6 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
-              - column:
-                  name: family_id
-                  type: bigint
         - createTable:
             tableName: mother
             columns:
@@ -94,9 +91,6 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
-              - column:
-                  name: family_id
-                  type: bigint
         - createTable:
             tableName: child
             columns:
@@ -110,8 +104,6 @@ databaseChangeLog:
               - column:
                   name: birth_date
                   type: date
-                  constraints:
-                    nullable: false
               - column:
                   name: first_name
                   type: varchar(255)
@@ -133,5 +125,5 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: childs_id
+                  name: family_id
                   type: bigint

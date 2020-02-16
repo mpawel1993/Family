@@ -7,6 +7,8 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 
 @Data
 @Accessors(chain = true)
@@ -18,7 +20,7 @@ import java.time.LocalDate;
 public class Child {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     Long id;
 
     @Column(nullable = false)

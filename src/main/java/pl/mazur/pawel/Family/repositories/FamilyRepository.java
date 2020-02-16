@@ -13,10 +13,10 @@ import java.util.List;
 @Repository
 public interface FamilyRepository extends JpaRepository<Family, Long> {
 
-    @Query(value = "select distinct * from family " +
+    @Query(value = "select * from family " +
             "inner join father fat on family.father_id = fat.id " +
             "inner join mother mat on family.mother_id = mat.id " +
-            "inner join child ch on family.id = ch.childs_id where " +
+            "inner join child ch on family.id = ch.family_id where " +
             "fat.first_name  like %:fatherFirstName% or " +
             "fat.sur_name like %:fatherSurName% or " +
             "fat.pesel like %:fatherPesel% or " +

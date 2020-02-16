@@ -12,21 +12,21 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: father_id
-                  type: BIGINT
+                  type: bigint
                   autoIncrement: false
                   constraints:
                     primaryKey: false
                     nullable: true
               - column:
                   name: mother_id
-                  type: BIGINT
+                  type: bigint
                   autoIncrement: false
                   constraints:
                     primaryKey: false
@@ -36,7 +36,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
@@ -48,28 +48,28 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: first_name
-                  type: VARCHAR(255)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: pesel
-                  type: VARCHAR(255)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: sur_name
-                  type: VARCHAR(255)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: family_id
-                  type: BIGINT
+                  type: bigint
         - createTable:
             tableName: mother
             columns:
               - column:
                   name: id
-                  type: BIGINT
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
@@ -81,28 +81,28 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: first_name
-                  type: VARCHAR(255)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: pesel
-                  type: VARCHAR(255)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: sur_name
-                  type: VARCHAR(255)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: family_id
-                  type: BIGINT
+                  type: bigint
         - createTable:
             tableName: child
             columns:
               - column:
                   name: id
-                  type: BIGINT
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
@@ -111,30 +111,30 @@ databaseChangeLog:
                   name: birth_date
                   type: DATE
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: first_name
-                  type: VARCHAR(255)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: sex
-                  type: VARCHAR(255)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: pesel
-                  type: VARCHAR(255)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: sur_name
-                  type: VARCHAR(255)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: childs_id
-                  type: BIGINT
+                  name: family_id
+                  type: bigint
 #        - createTable:
 #            tableName: hibernate_sequences
 #            columns:

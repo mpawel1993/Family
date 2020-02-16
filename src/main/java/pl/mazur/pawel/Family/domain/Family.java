@@ -31,8 +31,8 @@ public class Family {
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     Mother mother;
 
-    @JoinColumn()
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "FAMILY_ID", referencedColumnName = "ID")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Child> childs;
 
     public Family checkIsFatherExist() {
