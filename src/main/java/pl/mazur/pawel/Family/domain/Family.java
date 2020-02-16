@@ -37,7 +37,7 @@ public class Family {
 
     public Family checkIsFatherExist() {
         if (this.getFather() != null) {
-            throw  new BusinessException(FAMILY_HAVE_FATHER_STATEMENT);
+            throw new BusinessException(FAMILY_HAVE_FATHER_STATEMENT);
         }
         return this;
     }

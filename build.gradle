@@ -1,8 +1,8 @@
 plugins {
-	id 'org.springframework.boot' version '2.1.6.RELEASE'
-	id 'java'
-	id 'groovy'
-	id 'net.ltgt.apt' version '0.20'
+    id 'org.springframework.boot' version '2.1.6.RELEASE'
+    id 'java'
+    id 'groovy'
+    id 'net.ltgt.apt' version '0.20'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -12,38 +12,38 @@ group = 'pl.mazur.pawel'
 version = '0.0.1-SNAPSHOT'
 
 configurations {
-	developmentOnly
-	runtimeClasspath {
-		extendsFrom developmentOnly
-	}
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 ext {
-	set('springCloudVersion', "Hoxton.SR1")
+    set('springCloudVersion', "Hoxton.SR1")
 }
 
 dependencies {
-	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
-	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	implementation "org.mapstruct:mapstruct:1.3.0.Final"
-	annotationProcessor "org.mapstruct:mapstruct-processor:1.3.0.Final"
-	testAnnotationProcessor "org.mapstruct:mapstruct-processor:1.3.0.Final"
-	testCompile group: 'org.spockframework', name: 'spock-spring', version: '1.3-groovy-2.5'
-	testCompile group: 'org.spockframework', name: 'spock-core', version: '1.3-groovy-2.5'
-	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.6.RELEASE'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	runtimeOnly 'com.h2database:h2'
-	implementation 'org.liquibase:liquibase-core'
-	runtimeOnly 'mysql:mysql-connector-java'
-compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '2.1.5.RELEASE'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation "org.mapstruct:mapstruct:1.3.0.Final"
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.3.0.Final"
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:1.3.0.Final"
+    testCompile group: 'org.spockframework', name: 'spock-spring', version: '1.3-groovy-2.5'
+    testCompile group: 'org.spockframework', name: 'spock-core', version: '1.3-groovy-2.5'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.6.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    runtimeOnly 'com.h2database:h2'
+    implementation 'org.liquibase:liquibase-core'
+    runtimeOnly 'mysql:mysql-connector-java'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '2.1.5.RELEASE'
 }
