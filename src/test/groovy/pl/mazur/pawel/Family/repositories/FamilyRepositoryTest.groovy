@@ -25,7 +25,7 @@ class FamilyRepositoryTest extends Specification {
     }
 
     @Unroll
-    def "SearchFamilies"() {
+    def "Should searchFamilies return families basing on provided search criteria"() {
         when:
         def result = familyRepository.searchFamilies(criteria.fatherFirstName,
                 criteria.fatherSurName,
@@ -48,7 +48,7 @@ class FamilyRepositoryTest extends Specification {
         where:
         criteria                     | expected_family_id
         createFamilyCriteria()       | 1L
-        createSecondFamilyCriteria() | 16L
+        createSecondFamilyCriteria() | 4L
 
     }
 }

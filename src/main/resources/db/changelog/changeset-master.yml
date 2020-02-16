@@ -1,7 +1,7 @@
 databaseChangeLog:
   - preConditions:
       - runningAs:
-          username: SA
+          username: root
 
   - changeSet:
       id: 1
